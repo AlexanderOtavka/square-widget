@@ -21,8 +21,8 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-10dp"
             android:format12Hour="h:mm"
-            android:textSize="64sp"
-            android:textColor="@color/widgetColor" />
+            android:textColor="@color/widgetColor"
+            android:textSize="64sp" />
 
         <TextView
             android:id="@+id/widget_greeting"
