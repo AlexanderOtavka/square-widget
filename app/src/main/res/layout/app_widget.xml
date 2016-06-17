@@ -1,0 +1,40 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/widget_box"
+        android:layout_width="wrap_content"
+        android:minWidth="@dimen/box_minWidth"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/box_padding"
+        android:background="@drawable/widget_box_border"
+        android:orientation="vertical">
+
+        <TextClock
+            android:id="@+id/widget_clock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="-10dp"
+            android:format12Hour="h:mm"
+            android:textSize="64sp"
+            android:textColor="@color/widgetColor" />
+
+        <TextView
+            android:id="@+id/widget_greeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/box_spacing"
+            android:layout_below="@+id/widget_clock"
+            android:text="@string/widget_greetingMorning"
+            android:textColor="@color/widgetColor"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
