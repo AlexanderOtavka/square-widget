@@ -22,7 +22,7 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
-        <receiver android:name=".AlarmManagerBroadcastReceiver" />
+        <receiver android:name=".WidgetUpdateBroadcastReceiver" />
     </application>
 
 </manifest>
