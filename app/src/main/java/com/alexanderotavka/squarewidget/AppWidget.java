@@ -17,7 +17,7 @@ import java.util.Calendar;
 public class AppWidget extends AppWidgetProvider {
 
     @SuppressWarnings("unused")
-    private static final String TAG = "widget";
+    private static final String TAG = "AppWidget";
 
     private static final String ACTION_SCHEDULED_UPDATE = "com.alexanderotavka.squarewidget" +
             ".SCHEDULED_UPDATE";
@@ -28,10 +28,14 @@ public class AppWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ACTION_SCHEDULED_UPDATE)) {
-            AppWidgetManager manager = AppWidgetManager.getInstance(context);
-            int[] ids = manager.getAppWidgetIds(new ComponentName(context, AppWidget.class));
-            onUpdate(context, manager, ids);
+        switch (intent.getAction()) {
+            case Intent.ACTION_TIMEZONE_CHANGED:
+            case Intent.ACTION_TIME_CHANGED:
+            case ACTION_SCHEDULED_UPDATE:
+                AppWidgetManager manager = AppWidgetManager.getInstance(context);
+                int[] ids = manager.getAppWidgetIds(new ComponentName(context, AppWidget.class));
+                onUpdate(context, manager, ids);
+                break;
         }
 
         super.onReceive(context, intent);
@@ -71,36 +75,31 @@ public class AppWidget extends AppWidgetProvider {
         intent.setAction(ACTION_SCHEDULED_UPDATE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
-        long nowMS = System.currentTimeMillis();
-        long midnightMS = _getDateMillis(nowMS, HOUR_MIDNIGHT);
-        long noonMS = _getDateMillis(nowMS, HOUR_NOON);
-        long eveningMS = _getDateMillis(nowMS, HOUR_EVENING);
-
-        long soonestBreakpoint = Math.min(midnightMS, Math.min(noonMS, eveningMS));
+        Calendar now = Calendar.getInstance();
+        long midnight = _getDateMillis(now, HOUR_MIDNIGHT);
+        long noon = _getDateMillis(now, HOUR_NOON);
+        long evening = _getDateMillis(now, HOUR_EVENING);
+        long soonestBreakpoint = Math.min(midnight, Math.min(noon, evening));
 
         // Schedule to update when convenient for the system, will not wakeup device
         alarmManager.set(AlarmManager.RTC, soonestBreakpoint, pendingIntent);
     }
 
-    private static long _getDateMillis(long nowMS, int hourOfDay) {
+    private static long _getDateMillis(Calendar now, int hourOfDay) {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
-
-        // One second later to be sure we are within the breakpoint.
         calendar.set(Calendar.MINUTE, 0);
+
+        // One second later to be sure we are within the breakpoint
         calendar.set(Calendar.SECOND, 1);
         calendar.set(Calendar.MILLISECOND, 0);
 
-        long millis = calendar.getTimeInMillis();
-
-        // Just in case we are right on the breakpoint, we schedule the next one.
-        final long BUFFER_TIME_MS = 1000;
-        if (millis < nowMS + BUFFER_TIME_MS) {
-            final long DAY_MS = 24 * 60 * 60 * 1000;
-            millis += DAY_MS;
+        // Ensure date is in the future
+        if (calendar.before(now)) {
+            calendar.add(Calendar.DAY_OF_YEAR, 1);
         }
 
-        return millis;
+        return calendar.getTimeInMillis();
     }
 
 }
