@@ -14,10 +14,10 @@ import java.util.Calendar;
 /**
  * Manages widget and schedules updates.
  */
-public class AppWidget extends AppWidgetProvider {
+public class WidgetProvider extends AppWidgetProvider {
 
     @SuppressWarnings("unused")
-    private static final String TAG = "AppWidget";
+    private static final String TAG = "WidgetProvider";
 
     private static final String ACTION_SCHEDULED_UPDATE =
             "com.alexanderotavka.squarewidget.SCHEDULED_UPDATE";
@@ -33,7 +33,7 @@ public class AppWidget extends AppWidgetProvider {
             case Intent.ACTION_TIME_CHANGED:
             case ACTION_SCHEDULED_UPDATE:
                 AppWidgetManager manager = AppWidgetManager.getInstance(context);
-                int[] ids = manager.getAppWidgetIds(new ComponentName(context, AppWidget.class));
+                int[] ids = manager.getAppWidgetIds(new ComponentName(context, WidgetProvider.class));
                 onUpdate(context, manager, ids);
                 break;
         }
@@ -56,7 +56,7 @@ public class AppWidget extends AppWidgetProvider {
         }
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.app_widget);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
         views.setTextViewText(R.id.widget_greeting, greeting);
         views.setContentDescription(R.id.widget_greeting, greeting);
 
@@ -71,7 +71,7 @@ public class AppWidget extends AppWidgetProvider {
     private static void _scheduleNextUpdate(Context context) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AppWidget.class).setAction(ACTION_SCHEDULED_UPDATE);
+        Intent intent = new Intent(context, WidgetProvider.class).setAction(ACTION_SCHEDULED_UPDATE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar now = Calendar.getInstance();

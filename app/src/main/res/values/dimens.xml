@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="box_minWidth">220dp</dimen>
-    <dimen name="box_minHeight">110dp</dimen>
-    <dimen name="box_padding">20dp</dimen>
-    <dimen name="box_spacing">5dp</dimen>
+    <dimen name="widget_box_minWidth">220dp</dimen>
+    <dimen name="widget_box_minHeight">110dp</dimen>
+    <dimen name="widget_box_padding">20dp</dimen>
+    <dimen name="widget_box_spacing">5dp</dimen>
 </resources>

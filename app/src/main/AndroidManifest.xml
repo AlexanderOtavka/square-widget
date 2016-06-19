@@ -12,7 +12,7 @@
         android:fullBackupContent="@xml/backup_scheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <receiver android:name=".AppWidget">
+        <receiver android:name=".WidgetProvider">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="android.intent.action.TIMEZONE_CHANGED" />
@@ -21,7 +21,7 @@
 
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/app_widget_info" />
+                android:resource="@xml/widget_info" />
         </receiver>
 
     </application>

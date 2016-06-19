@@ -6,11 +6,11 @@
     <RelativeLayout
         android:id="@+id/widget_box"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/box_minWidth"
+        android:minWidth="@dimen/widget_box_minWidth"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:padding="@dimen/box_padding"
+        android:padding="@dimen/widget_box_padding"
         android:background="@drawable/widget_box_border">
 
         <TextClock
@@ -20,7 +20,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="-10dp"
             android:format12Hour="h:mm"
-            android:textColor="@color/widgetColor"
+            android:textColor="@color/widget_colorPrimary"
             android:textSize="64sp" />
 
         <TextView
@@ -28,10 +28,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/box_spacing"
+            android:layout_marginTop="@dimen/widget_box_spacing"
             android:layout_below="@+id/widget_clock"
             android:text="@string/widget_greetingMorning"
-            android:textColor="@color/widgetColor"
+            android:textColor="@color/widget_colorPrimary"
             android:textSize="24sp" />
 
     </RelativeLayout>
