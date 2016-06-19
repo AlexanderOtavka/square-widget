@@ -33,7 +33,7 @@ public class WidgetProvider extends AppWidgetProvider {
             case Intent.ACTION_TIME_CHANGED:
             case ACTION_SCHEDULED_UPDATE:
                 AppWidgetManager manager = AppWidgetManager.getInstance(context);
-                int[] ids = manager.getAppWidgetIds(new ComponentName(context, WidgetProvider.class));
+                int[] ids = manager.getAppWidgetIds(_getComponentName(context));
                 onUpdate(context, manager, ids);
                 break;
         }
@@ -68,10 +68,15 @@ public class WidgetProvider extends AppWidgetProvider {
         _scheduleNextUpdate(context);
     }
 
+    private static ComponentName _getComponentName(Context context) {
+        return new ComponentName(context, WidgetProvider.class);
+    }
+
     private static void _scheduleNextUpdate(Context context) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, WidgetProvider.class).setAction(ACTION_SCHEDULED_UPDATE);
+        Intent intent = new Intent(context, WidgetProvider.class)
+                .setAction(ACTION_SCHEDULED_UPDATE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar now = Calendar.getInstance();
