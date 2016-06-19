@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 Update Period: 30 minutes = 1800000
-TODO: update preview and use multiple DPIs
 -->
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -9,7 +8,7 @@ TODO: update preview and use multiple DPIs
     android:initialLayout="@layout/app_widget"
     android:minHeight="@dimen/box_minHeight"
     android:minWidth="@dimen/box_minWidth"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/widget_preview"
     android:resizeMode="vertical|horizontal"
     android:updatePeriodMillis="1800000"
     android:widgetCategory="home_screen">
