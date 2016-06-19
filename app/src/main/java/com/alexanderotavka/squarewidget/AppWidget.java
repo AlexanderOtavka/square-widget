@@ -19,8 +19,8 @@ public class AppWidget extends AppWidgetProvider {
     @SuppressWarnings("unused")
     private static final String TAG = "AppWidget";
 
-    private static final String ACTION_SCHEDULED_UPDATE = "com.alexanderotavka.squarewidget" +
-            ".SCHEDULED_UPDATE";
+    private static final String ACTION_SCHEDULED_UPDATE =
+            "com.alexanderotavka.squarewidget.SCHEDULED_UPDATE";
 
     private static final int HOUR_MIDNIGHT = 0;
     private static final int HOUR_NOON = 12;
@@ -71,8 +71,7 @@ public class AppWidget extends AppWidgetProvider {
     private static void _scheduleNextUpdate(Context context) {
         AlarmManager alarmManager =
                 (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, AppWidget.class);
-        intent.setAction(ACTION_SCHEDULED_UPDATE);
+        Intent intent = new Intent(context, AppWidget.class).setAction(ACTION_SCHEDULED_UPDATE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         Calendar now = Calendar.getInstance();
